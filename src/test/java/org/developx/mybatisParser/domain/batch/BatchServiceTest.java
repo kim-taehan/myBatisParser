@@ -18,10 +18,6 @@ class BatchServiceTest {
         String[] flute = {"사과", "바나나", "배", "탕수육"};
 
         String[] strings = sumSql(color, flute);
-
-        for (String string : strings) {
-            System.out.println(string);
-        }
     }
 
 

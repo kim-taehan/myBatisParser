@@ -3,19 +3,18 @@ package org.developx.mybatisParser.domain.batch;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.developx.mybatisParser.domain.analysis.xmlparser.XmlParser;
-import org.developx.mybatisParser.domain.analysis.xmlparser.XmlParserImpl;
 import org.developx.mybatisParser.domain.mapper.data.ElType;
 import org.developx.mybatisParser.domain.mapper.entity.Mapper;
 import org.developx.mybatisParser.domain.mapper.entity.Namespace;
+import org.developx.mybatisParser.domain.mapper.entity.Sql;
 import org.developx.mybatisParser.domain.mapper.service.MapperService;
 import org.developx.mybatisParser.domain.mapper.service.NamespaceService;
+import org.developx.mybatisParser.domain.mapper.service.SqlService;
 import org.developx.mybatisParser.domain.snapshot.entity.XmlFile;
 import org.developx.mybatisParser.domain.snapshot.service.SnapshotService;
 import org.dom4j.*;
-import org.dom4j.tree.DefaultElement;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 import java.io.File;
 import java.util.Iterator;
@@ -31,6 +30,7 @@ public class BatchService {
     private final XmlParser xmlParser;
     private final NamespaceService namespaceService;
     private final MapperService mapperService;
+    private final SqlService sqlService;
 
     public void startBatch(Long snapshotId) {
 
@@ -73,7 +73,6 @@ public class BatchService {
                         .xml(element.asXML())
                         .build();
                 mapperService.save(mapper);
-
                 saveSql(element, mapper);
             }
         }
@@ -83,8 +82,11 @@ public class BatchService {
 
         String[] result = xmlParser.findSqlTexts(element);
         for (String text : result) {
-            log.info("-----------------------------------------------------------------");
-            log.info(text);
+            Sql sql = Sql.builder()
+                    .mapper(mapper)
+                    .originQuery(text)
+                    .build();
+            sqlService.save(sql);
         }
     }
 
