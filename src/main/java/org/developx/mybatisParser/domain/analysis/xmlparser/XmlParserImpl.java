@@ -95,15 +95,48 @@ public class XmlParserImpl implements XmlParser {
         };
     }
 
-    private String[] extractTrimElement(DefaultElement defaultElement, String[] origin) {
-        String prefix = getAttribute(defaultElement, "prefix");
-        String suffix = getAttribute(defaultElement, "suffix");
+    private String removeOverrides(String sql, String[] prefixOverrides, String[] suffixOverrides) {
 
+        String trimSql = sql.trim();
+        if (!StringUtils.hasText(trimSql)) {
+            return sql;
+        }
 
-        return origin;
+        for (String suffixOverride : suffixOverrides) {
+            if(trimSql.endsWith(suffixOverride.trim())){
+                sql = sql.substring(0, sql.lastIndexOf(suffixOverride.trim())) + " ";
+            }
+        }
+        for (String prefixOverride : prefixOverrides) {
+            if (StringUtils.hasText(trimSql) && trimSql.startsWith(prefixOverride.trim())) {
+                String trimPrefix = prefixOverride.trim();
+                sql = " " + sql.substring(sql.indexOf(trimPrefix) + trimPrefix.length() , sql.length());
+            }
+        }
+        return sql;
     }
 
+    private String[] extractTrimElement(DefaultElement defaultElement, String[] origin) {
 
+        String prefix = getAttribute(defaultElement, "prefix");
+        String suffix = getAttribute(defaultElement, "suffix");
+        String[] prefixOverrides = getAttribute(defaultElement, "prefixOverrides").split("\\|");
+        String[] suffixOverrides = getAttribute(defaultElement, "suffixOverrides").split("\\|");
+
+        String[] ret = extractElement(defaultElement, EMPTY_ARRAY);
+        // TODO : trim 에서 내부에 쿼리가 없는 경우 prefix, suffix를 붙여야 되는건지 모르겠음..
+
+        for (int i = 0; i < ret.length; i++) {
+            ret[i] = removeOverrides(ret[i], prefixOverrides, suffixOverrides);
+        }
+
+        return multiSql (
+                origin,
+                new String[]{String.format(" %s ", prefix)},
+                ret,
+                new String[]{String.format(" %s ", suffix)}
+        );
+    }
 
     private String[] extractIfElement(DefaultElement defaultElement, String[] origin) {
         // if 문 반영한것과 안한 케이스로 나눈다.
@@ -117,7 +150,7 @@ public class XmlParserImpl implements XmlParser {
         for (Iterator i = defaultElement.nodeIterator(); i.hasNext();){
             Node node = (Node) i.next();
             if (node.getNodeType() == Node.ELEMENT_NODE) {
-                String[] whenText = extractElement((DefaultElement) node, new String[]{" "});
+                String[] whenText = extractElement((DefaultElement) node, BLANK_ARRAY);
                 ret = subSql(ret, whenText);
             }
         }

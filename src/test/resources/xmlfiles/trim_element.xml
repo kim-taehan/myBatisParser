@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.developx.testDao">
+	<select id="selectSample">
+		<trim prefix="(" prefixOverrides="," suffix=")" suffixOverrides=",">
+			<if test="para1 != null">
+				,사과,
+			</if>
+			<if test="para2 != null">
+				,바나나,
+			</if>
+		</trim>
+	</select>
+</mapper>
+
+ 

@@ -131,6 +131,21 @@ class XmlParserTest {
                 .contains("", "set사과,", "set바나나,", "set사과,바나나,");
     }
 
+    @DisplayName("<set> 구문은 안에 내용이 있는경우만 set 을 붙인다.")
+    @Test
+    void findSqlTextTrimEl() throws DocumentException {
+        // given
+        Element element = getElement("trim_element.xml");
+
+        // when
+        String[] sqlTexts = xmlParser.findSqlTexts(element);
+        List<String> collect = removeBlank(sqlTexts);
+
+        // then
+        assertThat(collect).hasSize(4)
+                .contains("()", "(사과)", "(바나나)", "(사과,,바나나)");
+    }
+
 
     private static List<String> removeBlank(String[] sqlTexts) {
         return Arrays.stream(sqlTexts)
