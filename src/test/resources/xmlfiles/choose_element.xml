@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.developx.testDao">
+	<select id="selectSample">
+		<choose>
+			<when test="sex == male">
+				남성
+			</when>
+			<when test="sex == female">
+				여성
+			</when>
+			<otherwise>
+				트랜스젠더
+			</otherwise>
+		</choose>
+	</select>
+</mapper>
+
+ 

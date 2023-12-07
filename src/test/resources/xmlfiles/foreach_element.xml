@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.developx.testDao">
+	<select id="selectSample">
+		<foreach item="item" index="index" collection="list"
+				 open="("
+				 separator=","
+				 close=")"
+				 nullable="true">
+			내용
+		</foreach>
+	</select>
+</mapper>
+
+ 
