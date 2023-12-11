@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html 	xmlns:th="http://www.thymeleaf.org"
+         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+         layout:decorate="layout/default_layout">
+<body>
+<div layout:fragment="content">
+
+    <!-- Post content-->
+    <article>
+        <header class="mb-4" th:object="${mapper}">
+            <h1 class="fw-bolder mb-1" th:text="${mapper.fullName}">Mapper List</h1>
+        </header>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>sqls</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="sql : ${sqls}">
+                <td>
+                    <p th:text="${sql.id}"></p>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
+</div>
+<script src="js/main.js"></script>
+
+</body>
+</html>

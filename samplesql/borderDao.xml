@@ -18,7 +18,191 @@
 			</if>
 		</trim>
 	</select>
-	
+
+	<insert id="insertSample1" resultType="domain.blog.Post">
+		select * from tbl_board
+		<trim prefix="where" suffix=";" prefixOverrides=" AND | OR" suffixOverrides = "니미럴">
+			1=1
+			<if test="title != null">
+				and title = #{title}
+			</if>
+			<if test="content != null">
+				AND content = #{content}
+			</if>
+			<if test="writer != null">
+				OR writer = #{writer} 니미럴
+			</if>
+		</trim>
+	</insert>
+
+
+	<insert id="insertSample2" resultType="domain.blog.Post">
+		select * from tbl_board
+		<trim prefix="where" suffix=";" prefixOverrides=" AND | OR" suffixOverrides = "니미럴">
+			1=1
+			<if test="title != null">
+				and title = #{title}
+			</if>
+			<if test="content != null">
+				AND content = #{content}
+			</if>
+			<if test="writer != null">
+				OR writer = #{writer} 니미럴
+			</if>
+		</trim>
+	</insert>
+
+
+	<insert id="insertSample3" resultType="domain.blog.Post">
+		select * from tbl_board
+		<trim prefix="where" suffix=";" prefixOverrides=" AND | OR" suffixOverrides = "니미럴">
+			1=1
+			<if test="title != null">
+				and title = #{title}
+			</if>
+			<if test="content != null">
+				AND content = #{content}
+			</if>
+			<if test="writer != null">
+				OR writer = #{writer} 니미럴
+			</if>
+		</trim>
+	</insert>
+
+
+	<insert id="insertSample4" resultType="domain.blog.Post">
+		select * from tbl_board
+		<trim prefix="where" suffix=";" prefixOverrides=" AND | OR" suffixOverrides = "니미럴">
+			1=1
+			<if test="title != null">
+				and title = #{title}
+			</if>
+			<if test="content != null">
+				AND content = #{content}
+			</if>
+			<if test="writer != null">
+				OR writer = #{writer} 니미럴
+			</if>
+		</trim>
+	</insert>
+
+
+	<insert id="insertSample5" resultType="domain.blog.Post">
+		select * from tbl_board
+		<trim prefix="where" suffix=";" prefixOverrides=" AND | OR" suffixOverrides = "니미럴">
+			1=1
+			<if test="title != null">
+				and title = #{title}
+			</if>
+			<if test="content != null">
+				AND content = #{content}
+			</if>
+			<if test="writer != null">
+				OR writer = #{writer} 니미럴
+			</if>
+		</trim>
+	</insert>
+
+
+	<insert id="insertSample6" resultType="domain.blog.Post">
+		select * from tbl_board
+		<trim prefix="where" suffix=";" prefixOverrides=" AND | OR" suffixOverrides = "니미럴">
+			1=1
+			<if test="title != null">
+				and title = #{title}
+			</if>
+			<if test="content != null">
+				AND content = #{content}
+			</if>
+			<if test="writer != null">
+				OR writer = #{writer} 니미럴
+			</if>
+		</trim>
+	</insert>
+
+
+	<insert id="insertSample7" resultType="domain.blog.Post">
+		select * from tbl_board
+		<trim prefix="where" suffix=";" prefixOverrides=" AND | OR" suffixOverrides = "니미럴">
+			1=1
+			<if test="title != null">
+				and title = #{title}
+			</if>
+			<if test="content != null">
+				AND content = #{content}
+			</if>
+			<if test="writer != null">
+				OR writer = #{writer} 니미럴
+			</if>
+		</trim>
+	</insert>
+
+
+	<insert id="insertSample8" resultType="domain.blog.Post">
+		select * from tbl_board
+		<trim prefix="where" suffix=";" prefixOverrides=" AND | OR" suffixOverrides = "니미럴">
+			1=1
+			<if test="title != null">
+				and title = #{title}
+			</if>
+			<if test="content != null">
+				AND content = #{content}
+			</if>
+			<if test="writer != null">
+				OR writer = #{writer} 니미럴
+			</if>
+		</trim>
+	</insert>
+
+
+	<insert id="insertSample9" resultType="domain.blog.Post">
+		select * from tbl_board
+		<trim prefix="where" suffix=";" prefixOverrides=" AND | OR" suffixOverrides = "니미럴">
+			1=1
+			<if test="title != null">
+				and title = #{title}
+			</if>
+			<if test="content != null">
+				AND content = #{content}
+			</if>
+			<if test="writer != null">
+				OR writer = #{writer} 니미럴
+			</if>
+		</trim>
+	</insert>
+
+	<insert id="insertSample10" resultType="domain.blog.Post">
+		select * from tbl_board
+		<trim prefix="where" suffix=";" prefixOverrides=" AND | OR" suffixOverrides = "니미럴">
+			1=1
+			<if test="title != null">
+				and title = #{title}
+			</if>
+			<if test="content != null">
+				AND content = #{content}
+			</if>
+			<if test="writer != null">
+				OR writer = #{writer} 니미럴
+			</if>
+		</trim>
+	</insert>
+
+	<insert id="insertSample11" resultType="domain.blog.Post">
+		select * from tbl_board
+		<trim prefix="where" suffix=";" prefixOverrides=" AND | OR" suffixOverrides = "니미럴">
+			1=1
+			<if test="title != null">
+				and title = #{title}
+			</if>
+			<if test="content != null">
+				AND content = #{content}
+			</if>
+			<if test="writer != null">
+				OR writer = #{writer} 니미럴
+			</if>
+		</trim>
+	</insert>
+
 <!--	<select id="selectBorderDetail" parameterType="java.lang.Integer" resultMap="PackageHeaderMap">-->
 <!--  		select-->
 <!--			bd.id , -->

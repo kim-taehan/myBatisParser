@@ -5,13 +5,14 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.developx.mybatisParser.domain.mapper.data.ElType;
+import org.developx.mybatisParser.global.entity.BaseEntity;
 
 import static lombok.AccessLevel.PROTECTED;
 
 @Entity
 @Getter
 @NoArgsConstructor(access = PROTECTED)
-public class Mapper {
+public class Mapper extends BaseEntity {
 
     @Id
     @GeneratedValue
