@@ -41,6 +41,7 @@ dependencies {
 
 	// https://mvnrepository.com/artifact/dom4j/dom4j
 	implementation 'dom4j:dom4j:1.6.1'
+	implementation 'com.github.jsqlparser:jsqlparser:4.7'
 
 }
 

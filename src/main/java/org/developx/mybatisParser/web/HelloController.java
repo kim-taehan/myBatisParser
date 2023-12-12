@@ -31,7 +31,7 @@ public class HelloController {
 
 
         // 동기로 처리
-        Collection<File> xmlFiles = directoryFinder.findDirectory("/Users/johyeonjeong/IdeaProjects/myBatisParser/samplesql");
+        Collection<File> xmlFiles = directoryFinder.findDirectory("samplesql");
         Long snapshot = snapshotService.createSnapshot(xmlFiles);
 
         // 비동기 처리 필요
