@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.developx.mybatisParser.domain.analysis.sqlparser.SqlParserResult;
 
 import static lombok.AccessLevel.PROTECTED;
 
@@ -25,9 +26,14 @@ public class Sql {
     @Column(length = 100000)
     private String originQuery;
 
+    @Column(length = 1)
+    private boolean isParsableSql;
+
     @Builder
-    public Sql(Mapper mapper, String originQuery) {
+    public Sql(Mapper mapper, String originQuery, SqlParserResult sqlParserResult) {
+
         this.mapper = mapper;
         this.originQuery = originQuery;
+        this.isParsableSql = sqlParserResult.isParsableSql();
     }
 }
