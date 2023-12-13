@@ -1,11 +1,13 @@
-package org.developx.mybatisParser.domain.analysis.sqlparser.decorator;
+package org.developx.mybatisParser.domain.analysis.sqlparser.textfilter.decorator;
+
+import org.developx.mybatisParser.domain.analysis.sqlparser.textfilter.SqlTextFilter;
 
 public class CommentDecorator extends Decorator {
 
     private static final String REMOVE_COMMENT_REGEX = "/\\*(?:.|[\\n\\r])*?\\*/|(--.*)";
 
-    public CommentDecorator(Component component) {
-        super(component);
+    public CommentDecorator(SqlTextFilter sqlTextFilter) {
+        super(sqlTextFilter);
     }
 
     @Override
