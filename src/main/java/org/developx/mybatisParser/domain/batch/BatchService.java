@@ -4,7 +4,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.developx.mybatisParser.domain.analysis.sqlparser.SqlFacade;
 import org.developx.mybatisParser.domain.analysis.sqlparser.SqlParserResult;
-import org.developx.mybatisParser.domain.analysis.xmlparser.XmlParser;
+import org.developx.mybatisParser.domain.analysis.sqlparser.template.data.ParseResult;
+import org.developx.mybatisParser.domain.analysis.sqlparser.textfilter.xmlparser.XmlParser;
 import org.developx.mybatisParser.domain.mapper.data.ElType;
 import org.developx.mybatisParser.domain.mapper.entity.Mapper;
 import org.developx.mybatisParser.domain.mapper.entity.Namespace;
@@ -86,11 +87,11 @@ public class BatchService {
         String[] result = xmlParser.findSqlTexts(element);
         for (String text : result) {
 
-            SqlParserResult parser = sqlFacade.parser(text);
+            ParseResult parser = sqlFacade.parser(text);
             Sql sql = Sql.builder()
                     .mapper(mapper)
                     .originQuery(text)
-                    .sqlParserResult(parser)
+                    .parseResult(parser)
                     .build();
             sqlService.save(sql);
         }

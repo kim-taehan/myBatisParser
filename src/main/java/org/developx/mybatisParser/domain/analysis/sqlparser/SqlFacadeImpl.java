@@ -4,6 +4,9 @@ import lombok.extern.slf4j.Slf4j;
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.parser.CCJSqlParserUtil;
 import net.sf.jsqlparser.statement.Statement;
+import net.sf.jsqlparser.statement.select.Select;
+import org.developx.mybatisParser.domain.analysis.sqlparser.template.SelectParser;
+import org.developx.mybatisParser.domain.analysis.sqlparser.template.data.ParseResult;
 import org.developx.mybatisParser.domain.analysis.sqlparser.textfilter.decorator.CommentDecorator;
 import org.developx.mybatisParser.domain.analysis.sqlparser.textfilter.DefaultSqlTextFilter;
 import org.developx.mybatisParser.domain.analysis.sqlparser.textfilter.decorator.ParameterDecorator;
@@ -21,16 +24,22 @@ public class SqlFacadeImpl implements SqlFacade {
     }
 
     @Override
-    public SqlParserResult parser(String sqlText) {
+    public ParseResult parser(String sqlText) {
 
         // TODO : text 길이가 너무 긴 경우 정규식 replaceAll 동작하지 않음..;;
         String changedSql = filter.operation(sqlText);
 
+        log.info("changedSql={}", changedSql);
+
         try {
             Statement statement = CCJSqlParserUtil.parse(changedSql);
-            return SqlParserResult.builder().isParsableSql(true).build();
+            if(statement instanceof Select) {
+                return new SelectParser().parse((Select) statement);
+            }
+
         } catch (JSQLParserException e) {
-            return SqlParserResult.builder().isParsableSql(false).build();
         }
+
+        return ParseResult.builder().isParsableSql(false).build();
     }
 }

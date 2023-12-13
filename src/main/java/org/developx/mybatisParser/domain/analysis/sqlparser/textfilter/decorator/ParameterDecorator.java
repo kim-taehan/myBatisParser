@@ -1,7 +1,6 @@
 package org.developx.mybatisParser.domain.analysis.sqlparser.textfilter.decorator;
 
 import org.developx.mybatisParser.domain.analysis.sqlparser.textfilter.SqlTextFilter;
-import org.developx.mybatisParser.domain.analysis.sqlparser.textfilter.decorator.Decorator;
 
 public class ParameterDecorator extends Decorator {
 
@@ -13,6 +12,10 @@ public class ParameterDecorator extends Decorator {
 
     @Override
     public String operation(String text) {
+        return sqlTextFilter.operation(converterParam(text));
+    }
+
+    private String converterParam(String text){
         return text.replaceAll(UPDATE_PARAM_REGEX, "''");
     }
 }

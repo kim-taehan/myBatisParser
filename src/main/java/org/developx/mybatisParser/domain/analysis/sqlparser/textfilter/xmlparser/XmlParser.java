@@ -1,4 +1,4 @@
-package org.developx.mybatisParser.domain.analysis.xmlparser;
+package org.developx.mybatisParser.domain.analysis.sqlparser.textfilter.xmlparser;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;

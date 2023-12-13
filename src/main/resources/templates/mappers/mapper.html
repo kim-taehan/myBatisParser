@@ -19,7 +19,7 @@
             <tbody>
             <tr th:each="sql : ${sqls}">
                 <td>
-                    <p th:text="${sql.id}"></p>
+                    <p th:text="${sql.id}"></p><p th:text="${sql.isParsableSql}"></p>
                 </td>
             </tr>
             </tbody>

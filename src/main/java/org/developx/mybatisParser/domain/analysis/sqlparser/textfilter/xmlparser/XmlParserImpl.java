@@ -1,4 +1,4 @@
-package org.developx.mybatisParser.domain.analysis.xmlparser;
+package org.developx.mybatisParser.domain.analysis.sqlparser.textfilter.xmlparser;
 
 import lombok.extern.slf4j.Slf4j;
 import org.dom4j.*;

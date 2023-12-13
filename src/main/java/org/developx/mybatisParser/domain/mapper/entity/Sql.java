@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.developx.mybatisParser.domain.analysis.sqlparser.SqlParserResult;
+import org.developx.mybatisParser.domain.analysis.sqlparser.template.data.ParseResult;
 
 import static lombok.AccessLevel.PROTECTED;
 
@@ -30,10 +31,10 @@ public class Sql {
     private boolean isParsableSql;
 
     @Builder
-    public Sql(Mapper mapper, String originQuery, SqlParserResult sqlParserResult) {
+    public Sql(Mapper mapper, String originQuery, ParseResult parseResult) {
 
         this.mapper = mapper;
         this.originQuery = originQuery;
-        this.isParsableSql = sqlParserResult.isParsableSql();
+        this.isParsableSql = parseResult.isParsableSql();
     }
 }

@@ -4,16 +4,10 @@
 <mapper namespace="BorderDAO">
 
 	<select id="selectPostIn" resultType="domain.blog.Post">
-		select * from tbl_board
-		<where>
-			1=1
-			<if test="title != null">
-				and title = ''
-			</if>
-			<if test="content != null">
-				and content = #{content
-			</if>
-		</where>
+		select a.a1, b.b1
+		from aa a
+		left outer join bb b on a.a2 = b.b2
+		where a.a1 = #{test}
 	</select>
 </mapper>
 

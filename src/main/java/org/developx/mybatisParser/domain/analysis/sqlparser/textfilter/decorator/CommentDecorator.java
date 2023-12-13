@@ -12,6 +12,10 @@ public class CommentDecorator extends Decorator {
 
     @Override
     public String operation(String text) {
-        return text.replaceAll(REMOVE_COMMENT_REGEX, "");
+        return sqlTextFilter.operation(removeComment(text));
+    }
+
+    private String removeComment(String text){
+        return text.replaceAll(REMOVE_COMMENT_REGEX, "''");
     }
 }

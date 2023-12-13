@@ -1,6 +1,8 @@
 package org.developx.mybatisParser.domain.analysis.sqlparser;
 
+import org.developx.mybatisParser.domain.analysis.sqlparser.template.data.ParseResult;
+
 public interface SqlFacade {
 
-   SqlParserResult parser(String sqlText);
+   ParseResult parser(String sqlText);
 }
