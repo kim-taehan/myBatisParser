@@ -1,6 +1,7 @@
 package org.developx.mybatisParser.domain.analysis.sqlparser.template;
 
 import net.sf.jsqlparser.expression.Expression;
+import net.sf.jsqlparser.schema.Column;
 import net.sf.jsqlparser.schema.Table;
 import net.sf.jsqlparser.statement.select.*;
 import org.developx.mybatisParser.domain.analysis.sqlparser.template.data.ParseResult;
@@ -26,7 +27,6 @@ public abstract class SqlTemplate {
 
     // TODO : visitor pattern 변경해볼까?
     protected void parseFromItem(FromItem fromItem){
-
         if(fromItem instanceof Table) {
             Table table = (Table) fromItem;
             String alias = table.getAlias() == null ? "" : table.getAlias().getName().toLowerCase();
@@ -36,6 +36,15 @@ public abstract class SqlTemplate {
     }
 
     protected void parseExpression(Expression expression) {
+
+        if(expression instanceof Column) {
+            Column column = (Column) expression;
+            String aliasName = column.getTable() == null ? "" : column.getTable().getName().toLowerCase();
+            if (tables.containsKey(aliasName)) {
+                String tableName = tables.get(aliasName);
+                parseResult.addColumn(tableName, column.getColumnName());
+            }
+        }
 
     }
 

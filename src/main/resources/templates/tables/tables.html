@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html 	xmlns:th="http://www.thymeleaf.org"
+         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+         layout:decorate="layout/default_layout">
+<body>
+<div layout:fragment="content">
+
+    <!-- Post content-->
+    <article>
+      <!-- Post header-->
+      <header class="mb-4">
+        <!-- Post title-->
+        <h1 class="fw-bolder mb-1">Table List</h1>
+        <!-- Post meta content-->
+      </header>
+<!--        <form role="form" action="/mappers" th:object="${mappersForm}" method="get">-->
+<!--            <div class="input-group">-->
+<!--                <input type="text" class="form-control" th:field="*{fullName}" placeholder="Search for...">-->
+<!--                <span class="input-group-append">-->
+<!--                    <button type="submit" class="btn btn-secondary">Search</button>-->
+<!--                </span>-->
+<!--            </div>-->
+<!--        </form>-->
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>mappers</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="table : ${tables}">
+<!--                <td>-->
+<!--                    <p style="float:left" th:text="${mapper.elType}"></p>-->
+<!--                    <p style="float:right" th:text="${mapper.createdDate}"></p>-->
+<!--                    <br>-->
+<!--                    <a-->
+<!--                       th:href="@{/mappers/{id} (id=${mapper.id})}"-->
+<!--                       th:text="${mapper.fullName}">-->
+<!--                    </a>-->
+<!--                </td>-->
+            </tr>
+            </tbody>
+        </table>
+
+</div>
+<script src="js/main.js"></script>
+
+</body>
+</html>

@@ -2,6 +2,7 @@ package org.developx.mybatisParser.domain.batch;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.codehaus.groovy.util.StringUtil;
 import org.developx.mybatisParser.domain.analysis.sqlparser.SqlFacade;
 import org.developx.mybatisParser.domain.analysis.sqlparser.SqlParserResult;
 import org.developx.mybatisParser.domain.analysis.sqlparser.template.data.ParseResult;
@@ -15,13 +16,20 @@ import org.developx.mybatisParser.domain.mapper.service.NamespaceService;
 import org.developx.mybatisParser.domain.mapper.service.SqlService;
 import org.developx.mybatisParser.domain.snapshot.entity.XmlFile;
 import org.developx.mybatisParser.domain.snapshot.service.SnapshotService;
+import org.developx.mybatisParser.domain.tables.entity.Col;
+import org.developx.mybatisParser.domain.tables.entity.Tables;
+import org.developx.mybatisParser.domain.tables.service.ColService;
+import org.developx.mybatisParser.domain.tables.service.TableService;
 import org.dom4j.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.io.File;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 @Service
 @Slf4j
@@ -35,6 +43,8 @@ public class BatchService {
     private final MapperService mapperService;
     private final SqlService sqlService;
     private final SqlFacade sqlFacade;
+    private final TableService tableService;
+    private final ColService colService;
 
     public void startBatch(Long snapshotId) {
 
@@ -77,17 +87,36 @@ public class BatchService {
                         .xml(element.asXML())
                         .build();
                 mapperService.save(mapper);
-                saveSql(element, mapper);
+                MapperParseResult mapperParseResult = saveSql(element, mapper);
+                saveTable(mapperParseResult, mapper);
             }
         }
     }
 
-    private void saveSql(Element element, Mapper mapper) {
+    private void saveTable(MapperParseResult mapperParseResult, Mapper mapper) {
+
+        Map<String, Set<String>> tables = mapperParseResult.getTables();
+        for (String tableName : tables.keySet()) {
+            if(StringUtils.hasText(tableName)) {
+                Tables table = tableService.findTableOrElse(tableName);
+                for (String colName : tables.get(tableName)) {
+                    Col save = colService.save(table, colName);
+                }
+
+                log.info(table.getTableName() + " : " + table.getCols().size());
+            }
+        }
+    }
+
+    private MapperParseResult saveSql(Element element, Mapper mapper) {
 
         String[] result = xmlParser.findSqlTexts(element);
-        for (String text : result) {
 
+        MapperParseResult mapperParseResult = new MapperParseResult();
+
+        for (String text : result) {
             ParseResult parser = sqlFacade.parser(text);
+            mapperParseResult.mergeTables(parser.getTables());
             Sql sql = Sql.builder()
                     .mapper(mapper)
                     .originQuery(text)
@@ -95,6 +124,8 @@ public class BatchService {
                     .build();
             sqlService.save(sql);
         }
+
+        return mapperParseResult;
     }
 
     private static String getAttribute(Element element, String key) {
