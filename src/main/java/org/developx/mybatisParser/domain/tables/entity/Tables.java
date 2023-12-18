@@ -26,6 +26,9 @@ public class Tables {
     @OneToMany(mappedBy = "table", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Col> cols = new ArrayList<>();
 
+    @OneToMany(mappedBy = "table")
+    private List<MapperTables> mapperTables = new ArrayList<>();
+
     @Builder
     public Tables(String tableName) {
         this.tableName = tableName;

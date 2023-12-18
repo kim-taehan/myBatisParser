@@ -2,9 +2,7 @@ package org.developx.mybatisParser.domain.batch;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.codehaus.groovy.util.StringUtil;
 import org.developx.mybatisParser.domain.analysis.sqlparser.SqlFacade;
-import org.developx.mybatisParser.domain.analysis.sqlparser.SqlParserResult;
 import org.developx.mybatisParser.domain.analysis.sqlparser.template.data.ParseResult;
 import org.developx.mybatisParser.domain.analysis.sqlparser.textfilter.xmlparser.XmlParser;
 import org.developx.mybatisParser.domain.mapper.data.ElType;
@@ -20,6 +18,8 @@ import org.developx.mybatisParser.domain.tables.entity.Col;
 import org.developx.mybatisParser.domain.tables.entity.Tables;
 import org.developx.mybatisParser.domain.tables.service.ColService;
 import org.developx.mybatisParser.domain.tables.service.TableService;
+import org.developx.mybatisParser.domain.tables.service.impl.MapperColService;
+import org.developx.mybatisParser.domain.tables.service.impl.MapperTableService;
 import org.dom4j.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,6 +45,8 @@ public class BatchService {
     private final SqlFacade sqlFacade;
     private final TableService tableService;
     private final ColService colService;
+    private final MapperTableService mapperTableService;
+    private final MapperColService mapperColService;
 
     public void startBatch(Long snapshotId) {
 
@@ -99,8 +101,11 @@ public class BatchService {
         for (String tableName : tables.keySet()) {
             if(StringUtils.hasText(tableName)) {
                 Tables table = tableService.findTableOrElse(tableName);
+                mapperTableService.save(mapper, table);
+
                 for (String colName : tables.get(tableName)) {
                     Col save = colService.save(table, colName);
+                    mapperColService.save(mapper, save);
                 }
 
                 log.info(table.getTableName() + " : " + table.getCols().size());

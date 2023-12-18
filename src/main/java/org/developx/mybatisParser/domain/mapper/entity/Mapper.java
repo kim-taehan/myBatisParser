@@ -5,7 +5,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.developx.mybatisParser.domain.mapper.data.ElType;
+import org.developx.mybatisParser.domain.tables.entity.MapperTables;
 import org.developx.mybatisParser.global.entity.BaseEntity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static lombok.AccessLevel.PROTECTED;
 
@@ -34,6 +38,9 @@ public class Mapper extends BaseEntity {
     @Lob
     @Column(length = 100000)
     private String xml;
+
+    @OneToMany(mappedBy = "mapper")
+    private List<MapperTables> mapperTables = new ArrayList<>();
 
     @Builder
     public Mapper(Namespace namespace, ElType elType, String mapperName, String xml) {

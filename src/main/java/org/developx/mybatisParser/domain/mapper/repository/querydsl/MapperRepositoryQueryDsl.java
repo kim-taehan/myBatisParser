@@ -6,4 +6,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface MapperRepositoryQueryDsl {
     Page<Mapper> findMappers(String fullName, Pageable pageable);
+
+    Page<Mapper> findMappersByTables(String tableName, Pageable pageable);
+    Page<Mapper> findMappersByCol(String tableName, String colName, Pageable pageable);
 }
