@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.domain.Page;
+import org.springframework.util.StringUtils;
 
 @Service
 @RequiredArgsConstructor
@@ -23,7 +24,14 @@ public class MapperServiceImpl implements MapperService {
     }
 
     @Override
-    public Page<Mapper> findMappers(String fullName) {
+    public Page<Mapper> findMappers(String fullName, String tableName, String colName) {
+
+        if (StringUtils.hasText(tableName) && StringUtils.hasText(colName)) {
+            return mapperRepository.findMappersByCol(tableName, colName, Pageable.ofSize(10));
+        }
+        else if (StringUtils.hasText(tableName)){
+            return mapperRepository.findMappersByTables(tableName, Pageable.ofSize(10));
+        }
         return mapperRepository.findMappers(fullName, Pageable.ofSize(10));
     }
 

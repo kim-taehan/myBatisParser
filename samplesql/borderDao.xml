@@ -10,11 +10,14 @@
 		from aa a
 		left outer join bb b on a.a3 = b.b3
 		where a.a1 = #{test}
+
 	</select>
 
 	<select id="selectPostIn2" resultType="domain.blog.Post">
 		select a.a2
-		, b.b2
+		<if test="b2=null">
+			, b.b2
+		</if>
 		, b.b3
 		from aa a
 		left outer join bb b on a.a3 = b.b3

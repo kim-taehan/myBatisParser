@@ -10,6 +10,12 @@
         <header class="mb-4" th:object="${mapper}">
             <h1 class="fw-bolder mb-1" th:text="${mapper.fullName}">Mapper List</h1>
         </header>
+        <div class="card bg-light">
+            <div class="card-body">
+                <!-- Comment form-->
+               <textarea class="form-control" rows="10" th:text="${mapper.xml}" disabled></textarea>
+            </div>
+        </div>
         <table class="table table-striped">
             <thead>
             <tr>

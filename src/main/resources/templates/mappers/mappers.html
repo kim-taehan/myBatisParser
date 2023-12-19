@@ -16,6 +16,8 @@
         <form role="form" action="/mappers" th:object="${mappersForm}" method="get">
             <div class="input-group">
                 <input type="text" class="form-control" th:field="*{fullName}" placeholder="Search for...">
+                <input type="text" class="form-control" th:field="*{tableName}" placeholder="table name..">
+                <input type="text" class="form-control" th:field="*{colName}" placeholder="column name..">
                 <span class="input-group-append">
                     <button type="submit" class="btn btn-secondary">Search</button>
                 </span>

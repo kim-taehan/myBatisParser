@@ -26,9 +26,9 @@ public class MapperController {
     @GetMapping("")
     public String mappers(Model model, MappersForm mappersForm){
 
-        mappersForm = mappersForm.fullName() == null ? new MappersForm("") : mappersForm;
+        mappersForm = mappersForm.fullName() == null ? MappersForm.init() : mappersForm;
         model.addAttribute("mappersForm", mappersForm);
-        model.addAttribute("mappers", mapperService.findMappers(mappersForm.fullName()));
+        model.addAttribute("mappers", mapperService.findMappers(mappersForm.fullName(), mappersForm.tableName(), mappersForm.colName()));
         return "mappers/mappers";
     }
 
